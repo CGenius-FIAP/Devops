@@ -10,8 +10,8 @@
 - [Introduction](#intro)
 - [Architecture Design](#archDesign)
 - [Benefits](#benefits)
+- [DDL Command](#ddl)
 - [Installation](#install)
-- [How to use](#manual)
 - [Techs](#techs)
 - [Endpoints](#endpoints)
 - [Known-Issues](#known-issues)
@@ -76,7 +76,7 @@ While at the beggining the cost of development of such marvels can be slightly h
 ---
 
 # 4)
-## DDL
+##  <a id="ddl"></a> DDL
 
 ```plsql
 DROP TABLE tb_erros CASCADE CONSTRAINTS;
@@ -170,27 +170,47 @@ CREATE TABLE tb_erros (
 
 ---
 
+# 5)
+
 ## 🔧🔧 <a id="install"></a>Installation 🔧🔧
 
-  For this specific API, all you need to do is:
+  We have developed two APIs at the moment. One of those do not implement CRUD and just makes queries to the ChatGPT, so we will demonstrate the one made with Maven/Java, for registering clients, companies, products and feedbacks;
+  
+  
   ### 1. Clone the repository
-  > git clone https://github.com/CGenius-FIAP/API-GPT.git
+  > git clone https://github.com/CGenius-FIAP/Devops.git
 <br>
 
   ### 2. Navigate to the Directory
-  > cd API-GPT
+  > cd Devops/api-sptring-atualizada
 <br>
 
-  ### 3. [OPTIONAL] Depending on your machine's Python or personal preferences, you might want to create a virtual environment
-  > python -m venv venv
+  ### 3. Build the executable JAR file (skipping tests scenarios)
+  > ./mvnw clean install -DskipTests
+
+  Or
+
+  > mvn clean install -DskipTests
 <br>
 
-  ### 4. Install packages and dependencies
-  > pip install -r requirements.txt
+  ### 4. Enter the credentials (sent directly to the professor)
+  > az login
+ 
+  Or
 
-  Or 
+  > git config --global credential.helper cache
+  > git config --global credential.https://rm94377webapp.scm.azurewebsites.net.username rm94377@fiap.com.br
+  > git config --global credential.https://rm94377webapp.scm.azurewebsites.net.password ************
 
-  > python data/script_pip.py
+  ## 5. [OPTIONAL]If, for some reason, git hasn't been initiated
+  > git init
+
+  ## 6. Once logged in in both git and azure, just add, commit and push
+  > git add .<br>
+  > git commit -m "Professor's test"<br>
+  > git push azure master
+
+
 
 ---
 
@@ -207,59 +227,16 @@ Or else download it manually at their site: https://insomnia.rest/download
 
 
 ## <a id="endpoints"></a>Endpoints
-  | METHOD | ADDRESS                   | ENDPOINT | DESCRIPTION                      | JSON BODY EXAMPLE                |
-|--------|---------------------------|----------|----------------------------------|----------------------------------|
-| POST   | http://20.226.206.195:8000| /query   | Make the question to the chatbot  | `{"query" : "ask the chatbot"}` |
-| GET    | http://20.226.206.195:8000| /reset   | Resets the session with the chatbot  | N/A (GET method)                  |
 
-
----
-
-
-## <a id="techs"></a>Main Technologies and Dependencies
-
-For this project, we used a variety of technologies to develop a robust and scalable API.
-
-### 💻 Main Technologies
-- **Python**: Our primary language for developing the API, chosen for its simplicity and robust libraries.
-- **Flask**: An easy, light and highly customizable framework for fast and efficient API development.
-- **ACI/ACR**: Used for easy deployment and scaling via Azure Container Instances and Azure Container Registry.
-- **Java 17**: Employed for other backend services, known for its robustness and extensive libraries.
-- **PLSQL**: Utilized for seamless database interactions with Oracle Database.
-- **JavaScript**: Scripting language that adds interactivity to our web and mobile interfaces.
-- **React**: A JavaScript library focused on building dynamic and responsive UI for our web application.
-- **React Native**: Enables native mobile app development using JavaScript.
-- **Oracle Database**: Our primary database for storing and managing all project data.
-
-<br>
-
-### 💻 Frontend Specific
-
-- **Stack Navigator**: Handles routes and navigation in our React Native application.
-- **Async Storage**: Used for login validation, ensuring that only registered users can access the app.
-
-<br>
-
-### 📦 Others
-
-- **React-Native**: Chosen for mobile development, allows code reuse for both iOS and Android.
-- **Java-Spring**: Used in developing other backend services of the project.
-
-<br>
-
-### 📦 Dependencies
-
-- **cx_Oracle**: Allowed us to interact seamlessly with Oracle databases.
-- **langchain**: Assisted in language processing tasks.
-- **chromadb**: Used for database management. (needs Desktop Development C++ Tools + SQLITE3)
-- **unstructured**: Helped in handling unstructured data.
-- **tiktoken**: Used for tokenization tasks.
-- **gunicorn**: Served as our WSGI HTTP Server.
-- **Flask-Session**: Managed user sessions in our Flask application.
-- **openai**: Integrated the OpenAI GPT model for chat functionalities.
-
-<br>
-<p align="center">While some of these dependecies might not be active in the project for this sprint, they are present at the version we are currently working to deliver on the next sprint. Expect changes for the next sprint, as tests goes on. </p>
+| METHOD | ADDRESS                                        | ENDPOINT  | DESCRIPTION                             | JSON                                                                                   |
+|--------|------------------------------------------------|-----------|----------------------------------------|-----------------------------------------------------------------------------------------|
+| POST   | https://rm94377webapp.azurewebsites.net/       | clientes/ | Create/Register a new client            | `{"nome": "", "endereco": "", "telefone": "", "cpf": "", "email": "", "senha": ""}`     |
+| POST   | https://rm94377webapp.azurewebsites.net/clientes/ | login  | Log into the system                     | `{"email": "", "senha": ""}`                                                           |
+| PUT    | https://rm94377webapp.azurewebsites.net/clientes/ | {user_id} | Update user information                 | `{"nome": "", "endereco": "", "telefone": "", "email": "", "senha": ""}`                |
+| DELETE | https://rm94377webapp.azurewebsites.net/clientes/ | {user_id} | Delete user from system                 | N/A (Delete Method)                                                                     |
+| GET    | https://rm94377webapp.azurewebsites.net/clientes/ | {user_id} | Get user's information by his ID         | N/A (Get Method)                                                                        |
+| GET    | https://rm94377webapp.azurewebsites.net/       | clientes/ | Get information from all registered clients | N/A (Get Method)                                                                        |
+| GET    | https://rm94377webapp.azurewebsites.net/clientes/ | page   | Get information from 10 users at a time    | N/A (Get Method)                                                                        |
 
 ---
 
