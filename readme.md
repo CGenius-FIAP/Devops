@@ -12,7 +12,6 @@
 - [Benefits](#benefits)
 - [DDL Command](#ddl)
 - [Installation](#install)
-- [Techs](#techs)
 - [Endpoints](#endpoints)
 - [Known-Issues](#known-issues)
 - [Future Plans](#doc)
@@ -52,7 +51,7 @@ Course: DevOps Tools & Cloud Computing<br>
 
 # 3)
 ## 🌟🌟 <a id="benefits"></a> Benefits of Using Chatbots 🌟🌟
-Why Chatbots Are Transforming Customer Service:
+Why Chatbots Are Transforming Customer Service:<br>
 1️⃣ 🏦 Cost-Efficiency: When compared to traditional customer support methods, chatbots offer significantly reduced operating costs. These digital agents are available 24/7, providing non-stop customer service that human agents can't possibly match. This leads to a lower overhead without sacrificing quality support.
 
 2️⃣ 🌍 Global Availability: Their constant availability isn't just convenient—it's a game-changer for global business operations. Chatbots can accommodate customers in various time zones without the extra expense of overnight staffing, thus widening your global reach and enhancing customer experience.
