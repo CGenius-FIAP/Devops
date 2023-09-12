@@ -8,6 +8,7 @@
 
 
 - [Introduction](#intro)
+- [Architecture Design](#archDesign)
 - [Benefits](#benefits)
 - [Installation](#install)
 - [How to use](#manual)
@@ -39,6 +40,16 @@ Course: DevOps Tools & Cloud Computing<br>
 
 ---
 
+# 2)
+## ☁️☁️ <a id="archDesign"></a> Architecture Design ☁️☁️
+<p align="center">
+  <img src="https://github.com/CGenius-FIAP/Devops/blob/main/architecture%20design.jpeg" alt="header" width="50%" />
+</p>
+
+
+---
+
+
 # 3)
 ## 🌟🌟 <a id="benefits"></a> Benefits of Using Chatbots 🌟🌟
 Why Chatbots Are Transforming Customer Service:
@@ -64,6 +75,100 @@ While at the beggining the cost of development of such marvels can be slightly h
 
 ---
 
+# 4)
+## DDL
+
+```plsql
+DROP TABLE tb_erros CASCADE CONSTRAINTS;
+ 
+DROP TABLE tb_cliente CASCADE CONSTRAINTS;
+ 
+DROP TABLE tb_empresa CASCADE CONSTRAINTS;
+ 
+DROP TABLE tb_feedback CASCADE CONSTRAINTS;
+ 
+DROP TABLE tb_produto CASCADE CONSTRAINTS;
+ 
+ 
+CREATE TABLE tb_cliente (
+    id_cliente  NUMBER(19) NOT NULL,
+    nr_cpf      VARCHAR2(255) NOT NULL,
+    ds_email    VARCHAR2(255) NOT NULL,
+    ds_endereco VARCHAR2(255) NOT NULL,
+    nm_cliente  VARCHAR2(255) NOT NULL,
+    ds_senha    VARCHAR2(255) NOT NULL,
+    nr_telefone NUMBER(13) NOT NULL
+);
+ 
+ALTER TABLE tb_cliente ADD CONSTRAINT pk_cliente PRIMARY KEY ( id_cliente );
+ 
+ALTER TABLE tb_cliente ADD CONSTRAINT un_cliente UNIQUE ( nr_cpf );
+ 
+CREATE TABLE tb_empresa (
+    id_empresa  NUMBER(19) NOT NULL,
+    nr_cnpj     NUMBER(19) NOT NULL,
+    ds_email    VARCHAR2(255) NOT NULL,
+    ds_endereco VARCHAR2(255) NOT NULL,
+    nm_empresa  VARCHAR2(255) NOT NULL,
+    ds_senha    VARCHAR2(255),
+    nr_telefone NUMBER(13) NOT NULL
+);
+ 
+ALTER TABLE tb_empresa ADD CONSTRAINT pk_empresa_nova PRIMARY KEY ( id_empresa );
+ 
+ALTER TABLE tb_empresa ADD CONSTRAINT un_empresa_nova UNIQUE ( nr_cnpj );
+ 
+CREATE TABLE tb_feedback (
+id_feedback              NUMBER(19) NOT NULL,
+    ds_avaliacao_atendimento FLOAT NOT NULL,
+    ds_comentario            VARCHAR2 (255),
+    ds_avaliacao_preco       FLOAT NOT NULL,
+    ds_avaliacao_produto     FLOAT NOT NULL,
+    ds_recomendacao_produto  NUMBER(1) NOT NULL,
+    produto_id_produto       NUMBER(19) NOT NULL,
+    empresa_id_empresa       NUMBER(19) NOT NULL,
+    cliente_id_cliente       NUMBER(19) NOT NULL
+);
+ 
+ALTER TABLE tb_feedback ADD CONSTRAINT pk_feedbackv1 PRIMARY KEY ( id_feedback );
+ 
+CREATE TABLE tb_produto (
+    id_produto         NUMBER(19) NOT NULL,
+    ds_descricao       VARCHAR2(255) NOT NULL,
+    nm_produto         VARCHAR2(255) NOT NULL,
+    qt_preco           NUMBER(19) NOT NULL,
+    empresa_id_empresa NUMBER(19) NOT NULL
+);
+ 
+ALTER TABLE tb_produto ADD CONSTRAINT pk_produto PRIMARY KEY ( id_produto,
+                                                               empresa_id_empresa );
+ 
+ALTER TABLE tb_feedback
+    ADD CONSTRAINT fk_feedback_cliente FOREIGN KEY ( cliente_id_cliente )
+        REFERENCES tb_cliente ( id_cliente );
+ 
+ALTER TABLE tb_feedback
+    ADD CONSTRAINT fk_feedback_produto FOREIGN KEY ( produto_id_produto,
+                                                     empresa_id_empresa )
+        REFERENCES tb_produto ( id_produto,
+                                empresa_id_empresa );
+ 
+ALTER TABLE tb_produto
+    ADD CONSTRAINT fk_produto_empresa FOREIGN KEY ( empresa_id_empresa )
+        REFERENCES tb_empresa ( id_empresa );
+ 
+CREATE TABLE tb_erros (
+    id_erro NUMBER GENERATED ALWAYS AS IDENTITY,
+    codigo_erro NUMBER,
+    nome_erro VARCHAR2(255),
+    data_ocorrencia DATE,
+    usuario_logado VARCHAR2(255)
+);
+
+```
+
+
+---
 
 ## 🔧🔧 <a id="install"></a>Installation 🔧🔧
 
